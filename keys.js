@@ -33,10 +33,6 @@ var readlinesync = require("readline-sync");
 //    * Step Three: Once logged in, navigate to <https://developer.spotify.com/my-applications/#!/applications/create> to register a new application to be used with the Spotify API. You can fill in whatever you'd like for these fields. When finished, click the "complete" button.
 
 //    * Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the [node-spotify-api package](https://www.npmjs.com/package/node-spotify-api).
-var songName = readlinesync.question("Interested in a song?")
-
-var SpotifyApi = require('node-spotify-api');
-
 /**
  * This example retrieves the top tracks for an artist.
  * https://developer.spotify.com/spotify-web-api/get-artists-top-tracks/
@@ -50,9 +46,15 @@ var SpotifyApi = require('node-spotify-api');
  * uses the Client Credentials flow. This flow uses only the client ID and the client secret.
  * https://developer.spotify.com/spotify-web-api/authorization-guide/#client_credentials_flow
  */
+
+var songName = readlinesync.question("spotify-this-song")
+
+var SpotifyApi = require('node-spotify-api');
+
+
 var spotify = new SpotifyApi({
-  clientId: "afb46ff650f441668231dc7307ca98ab",
-  clientSecret: "a32dbe43ad0e48309e7d7bcea588a99c"
+  "id" : "afb46ff650f441668231dc7307ca98ab",
+  "secret": "a32dbe43ad0e48309e7d7bcea588a99c"
 });
 
 spotify.search({ type: 'track', query: songName }, function(err, data) {
@@ -60,7 +62,22 @@ spotify.search({ type: 'track', query: songName }, function(err, data) {
       return console.log('Error occurred: ' + err);
     }
    
-  console.log(data); 
+  var songInfo = data.tracks.items; 
+
+  for (i = 0; i < songInfo.length; i++ ){
+      console.log(`
+                Artist: ${songInfo[i].artists[0].name}
+                Name of Song: ${songInfo[i].name}
+                Preview: ${songInfo[i].preview_url}
+                Album: ${songInfo[i].album.name}`
+      //Name of Artist: ${songInfo[i].artist}
+    //   Name of Song: ${JSON.parse(songInfo)[i].name}
+    //   Name of Album: ${JSON.parse(songInfo)[i].album}
+    //   Name of Link: ${JSON.parse(songInfo)[i].href}
+      
+          
+      )
+  }
   });
 
 // songName(spotifyApi, function(error, response, body) {
