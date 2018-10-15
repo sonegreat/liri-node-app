@@ -54,10 +54,11 @@ bandRequest(queryUrl2, function(error, response, body) {
 
     for (i = 0; i < body.length-1; i++){
     console.log(
+        
         `Name of Venue: ${JSON.parse(body)[i].venue.name}
         Location: ${JSON.parse(body)[i].venue.country + " "+ JSON.parse(body)[i].venue.region +" "+ JSON.parse(body)[i].venue.city}
         Dates of event: ${JSON.parse(body)[i].datetime}
-        ${i}`
+        ${i + 1}`
     )
 }
 //      * Name of the venue
@@ -104,45 +105,67 @@ bandRequest(queryUrl2, function(error, response, body) {
 //    * Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the [node-spotify-api package](https://www.npmjs.com/package/node-spotify-api).
 var songName = readlinesync.question("Interested in a song?")
 
-var songRequest = require("request");
+var SpotifyApi = require('node-spotify-api');
 
-const queryUrl3 = "https://www.npmjs.com/package/node-spotify-api"
+/**
+ * This example retrieves the top tracks for an artist.
+ * https://developer.spotify.com/spotify-web-api/get-artists-top-tracks/
+ */
 
-console.log(queryUrl3);
+/**
+ * This endpoint doesn't require an access token, but it's beneficial to use one as it
+ * gives the application a higher rate limit.
+ *
+ * Since it's not necessary to get an access token connected to a specific user, this example
+ * uses the Client Credentials flow. This flow uses only the client ID and the client secret.
+ * https://developer.spotify.com/spotify-web-api/authorization-guide/#client_credentials_flow
+ */
+var spotify = new SpotifyApi({
+  clientId: "afb46ff650f441668231dc7307ca98ab",
+  clientSecret: "a32dbe43ad0e48309e7d7bcea588a99c"
+});
 
-songRequest(queryUrl3, function(error, response, body) {
+spotify.search({ type: 'track', query: songName }, function(err, data) {
+    if (err) {
+      return console.log('Error occurred: ' + err);
+    }
+   
+  console.log(data); 
+  });
 
-  // If the request is successful
-  if (!error && response.statusCode === 200) {
-      console.log(body.length);
+// songName(spotifyApi, function(error, response, body) {
 
-    for (i = 0; i < body.length-1; i++){
-    console.log(`
-        Name of the song: ${JSON.parse(body).title}
-        Preview the song: ${JSON.parse(body)}
-        Album : ${JSON.parse(body).album}
-        ${i}`
+//   // If the request is successful
+//   if (!error && response.statusCode === 200) {
+//       console.log(body.length);
+
+//     for (i = 0; i < body.length-1; i++){
+//     console.log(`
+//         Name of the song: ${JSON.parse(body).title}
+//         Preview the song: ${JSON.parse(body)}
+//         Album : ${JSON.parse(body).album}
+//         ${i}`
     
-    )
-    * Artist(s)
+//     )
+//     // Artist(s)
 
-    //      * The song's name
+//     //      * The song's name
     
-    //      * A preview link of the song from Spotify
+//     //      * A preview link of the song from Spotify
     
-    //      * The album that the song is from
+//     //      * The album that the song is from
     
-}
+// }
 
   
-  }
+//   }
 
-  else{
-      console.log(`are you sure that is a song?`)
-  }
-})
-//})
-;
+//   else{
+//       console.log(`are you sure that is a song?`)
+//   }
+// })
+// //})
+// ;
 
 // 3. `node liri.js movie-this '<movie name here>'`
 
