@@ -22,24 +22,6 @@ var readlinesync = require("readline-sync");
 var bandName = readlinesync.question("concert-this")
 
 var bandRequest = require("request");
-// const bandInquirer = require("inquirer");
-
-// bandInquirer.prompt([
-
-//     {
-//       type: "input",
-//       name: "userInput",
-//       message: "Which band do you wish to go see live?"
-//     }])
-  
-// .then(function(location){
-
-    // let bandName = location.userInput; //process.argv[2];
-
-    // if (bandName == null || bandName == ""){
-    //     bandName = `Metallica`;
-    // }
-
 
 const queryUrl2 = "https://rest.bandsintown.com/artists/" + bandName + "/events?app_id=codingbootcamp";
 
@@ -61,9 +43,6 @@ bandRequest(queryUrl2, function(error, response, body) {
         ${i + 1}`
     )
 }
-//      * Name of the venue
-//      * Venue location
-//      * Date of the Event (use moment to format this as "MM/DD/YYYY")
     
 
   
@@ -73,8 +52,33 @@ bandRequest(queryUrl2, function(error, response, body) {
       console.log(`no such band, apparently`)
   }
 })
-//})
+
 ;
+
+//})
+//      * Name of the venue
+//      * Venue location
+//      * Date of the Event (use moment to format this as "MM/DD/YYYY")
+
+// const bandInquirer = require("inquirer");
+
+// bandInquirer.prompt([
+
+//     {
+//       type: "input",
+//       name: "userInput",
+//       message: "Which band do you wish to go see live?"
+//     }])
+  
+// .then(function(location){
+
+    // let bandName = location.userInput; //process.argv[2];
+
+    // if (bandName == null || bandName == ""){
+    //     bandName = `Metallica`;
+    // }
+
+
 
 // 2. `node liri.js spotify-this-song '<song name here>'`
 
@@ -206,9 +210,6 @@ spotify.search({ type: 'track', query: songName }, function(err, data) {
 //      * It's on Netflix!
 
 //    * You'll use the request package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use `trilogy`.
-var movieName = readlinesync.question("movie-this")
-
-var request = require("request");
 // var inquirer = require("inquirer");
 
 // inquirer.prompt([
@@ -222,6 +223,10 @@ var request = require("request");
 // .then(function(location){
 
 //     var movieName = location.userInput; //process.argv[2];
+
+var movieName = readlinesync.question("movie-this")
+
+var request = require("request");
 
     if (movieName == null || movieName == ""){
         movieName = `Mr. Nobody`;
@@ -239,17 +244,7 @@ request(queryUrl, function(error, response, body) {
   // If the request is successful
   if (!error && response.statusCode === 200) {
 
-    // Parse the body of the site and recover just the imdbRating
-    // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
-  //  * Title of the movie.
-//        * Year the movie came out.
-//        * IMDB Rating of the movie.
-//        * Rotten Tomatoes Rating of the movie.
-//        * Country where the movie was produced.
-//        * Language of the movie.
-//        * Plot of the movie.
-//        * Actors in the movie.
-//      
+      
 if (movieName == 'Mr. Nobody'){
     console.log(
     `Title: ${JSON.parse(body).Title}. It's on Netflix
@@ -277,7 +272,17 @@ else{
 })
 //})
 ;
-
+    // Parse the body of the site and recover just the imdbRating
+    // (Note: The syntax below for parsing isn't obvious. Just spend a few moments dissecting it).
+  //  * Title of the movie.
+//        * Year the movie came out.
+//        * IMDB Rating of the movie.
+//        * Rotten Tomatoes Rating of the movie.
+//        * Country where the movie was produced.
+//        * Language of the movie.
+//        * Plot of the movie.
+//        * Actors in the movie.
+//
 
 
 // 4. `node liri.js do-what-it-says`

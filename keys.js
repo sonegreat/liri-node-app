@@ -70,16 +70,18 @@ spotify.search({ type: 'track', query: songName }, function(err, data) {
                 Name of Song: ${songInfo[i].name}
                 Preview: ${songInfo[i].preview_url}
                 Album: ${songInfo[i].album.name}`
-      //Name of Artist: ${songInfo[i].artist}
-    //   Name of Song: ${JSON.parse(songInfo)[i].name}
-    //   Name of Album: ${JSON.parse(songInfo)[i].album}
-    //   Name of Link: ${JSON.parse(songInfo)[i].href}
       
           
       )
   }
   });
 
+
+   //Name of Artist: ${songInfo[i].artist}
+    //   Name of Song: ${JSON.parse(songInfo)[i].name}
+    //   Name of Album: ${JSON.parse(songInfo)[i].album}
+    //   Name of Link: ${JSON.parse(songInfo)[i].href}
+     
 // songName(spotifyApi, function(error, response, body) {
 
 //   // If the request is successful
